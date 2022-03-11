@@ -123,3 +123,34 @@ def test_attempt_flip(test_case):
     for _ in range(test_case.num_flips):
         tiles.attempt_flip(tile_state, test_case.num_chars)
     assert tile_state.current_char_index == test_case.expected_end_index
+
+
+def test_flipboard_initialization():
+    flipboard = tiles.Flipboard(80, " abc")
+    assert flipboard.text == " " * 80
+
+
+def test_basic_text():
+    flipboard = tiles.Flipboard(3, " abc")
+    # try to write this message
+    flipboard.set_message("abc")
+    flipboard.tick()
+    assert flipboard.text == "aaa"
+    flipboard.tick()
+    assert flipboard.text == "abb"
+    # it should stay at 'abc' afterwards
+    for _ in range(100):
+        flipboard.tick()
+        assert flipboard.text == "abc"
+
+
+def test_message_too_long():
+    flipboard = tiles.Flipboard(3, " abc")
+    with pytest.raises(RuntimeError):
+        flipboard.set_message(" " * 80)
+
+
+def test_message_cant_be_written_with_given_chars():
+    flipboard = tiles.Flipboard(3, " abc")
+    with pytest.raises(RuntimeError):
+        flipboard.set_message("def")
