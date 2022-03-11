@@ -7,7 +7,6 @@ from typing import Dict
 class TileState:
     """Simple class for storing a tile's state."""
 
-    num_chars: int
     current_char_index: int = 0
     remaining_flips_to_target: int = 0
 
@@ -23,12 +22,12 @@ def get_num_flips_until(
         return (target_index - tile_state.current_char_index) % len(char_to_index_dict)
 
 
-def attempt_flip(tile_state: TileState) -> None:
+def attempt_flip(tile_state: TileState, num_chars) -> None:
     """Attempt to flip the tile.
 
     If a tile has reached its target, then this function won't change the state
     """
     if tile_state.remaining_flips_to_target > 0:
         tile_state.current_char_index += 1
-        tile_state.current_char_index %= tile_state.num_chars
+        tile_state.current_char_index %= num_chars
         tile_state.remaining_flips_to_target -= 1
