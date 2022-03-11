@@ -1,16 +1,13 @@
 """module for managing tiles."""
+import dataclasses
 from typing import Dict
 
 
+@dataclasses.dataclass
 class TileState:
     """Simple class for storing a tile's state."""
 
-    def __init__(self, current_char_index=0):
-        self._current_char_index = current_char_index
-
-    @property
-    def current_char_index(self) -> int:  # noqa: D102
-        return self._current_char_index
+    current_char_index: int = 0
 
 
 def get_num_flips_until(
