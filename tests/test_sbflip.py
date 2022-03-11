@@ -103,6 +103,13 @@ attempt_flip_test_cases = [
         expected_end_index=1,
         remaining_flips_to_target=1,
     ),
+    AttemptFlipTestCase(
+        num_chars=26,
+        starting_index=0,
+        num_flips=100,
+        expected_end_index=5,
+        remaining_flips_to_target=5,
+    ),
     # wrap around and attempt to flip past the target
     AttemptFlipTestCase(
         num_chars=10,
