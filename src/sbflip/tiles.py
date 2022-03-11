@@ -57,6 +57,7 @@ class Flipboard:
         """Set the message that will be displayed next."""
         if len(message) > len(self._tiles):
             raise RuntimeError("This message is too long for this board")
+
         unwriteable_chars = set(message) - set(self._available_chars)
         if unwriteable_chars:
             raise RuntimeError(
@@ -65,15 +66,16 @@ class Flipboard:
 
         self._message_queue.append(message)
         if not self._message_is_in_progress:
-            self._set_next_message()
+            self._load_next_message()
 
-    def _set_next_message(self) -> None:
+    def _load_next_message(self) -> None:
         next_message = self._message_queue.popleft()
         for target_char, tile in zip(next_message, self._tiles):
             num_flips_to_target = get_num_flips_until(
                 tile, self._char_to_index_dict, target_char
             )
             tile.remaining_flips_to_target = num_flips_to_target
+        self._message_is_in_progress = True
 
     def tick(self) -> None:
         """Move forward one tick in time.
