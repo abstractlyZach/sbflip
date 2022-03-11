@@ -1,7 +1,8 @@
-from sbflip import tiles
-import pytest
 import collections
 
+import pytest
+
+from sbflip import tiles
 
 
 def test_default_tile_state():
